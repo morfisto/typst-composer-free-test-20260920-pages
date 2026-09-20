@@ -1,0 +1,75 @@
+<!DOCTYPE html><html lang="zh"><head><script src="/typst-composer-free-test-20260920-pages/assets/composer-settings.js"></script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="generator" content="Typst"><title>在网页上写清一个公式</title><meta name="date" content="2026-09-20"><link rel="alternate" type="application/rss+xml" href="/typst-composer-free-test-20260920-pages/feed.xml" title="纸上与屏间 RSS Feed"><meta property="og:title" content="在网页上写清一个公式"><meta property="og:type" content="article"><meta name="description" content="用 Typst 记录、表达与分享。"><meta property="og:description" content="用 Typst 记录、表达与分享。"><meta name="author" content="morfisto"><meta property="article:author" content="morfisto"><meta name="twitter:card" content="summary"><link rel="stylesheet" href="/typst-composer-free-test-20260920-pages/assets/tufte.css"><link rel="stylesheet" href="/typst-composer-free-test-20260920-pages/assets/tufted.css"><link rel="stylesheet" href="/typst-composer-free-test-20260920-pages/assets/theme.css"><link rel="stylesheet" href="/typst-composer-free-test-20260920-pages/assets/responsive.css"><link rel="stylesheet" href="/typst-composer-free-test-20260920-pages/assets/composer-theme.css"><link rel="stylesheet" href="/typst-composer-free-test-20260920-pages/assets/custom.css"><script src="/typst-composer-free-test-20260920-pages/assets/code-blocks.js"></script><script src="/typst-composer-free-test-20260920-pages/assets/format-headings.js"></script><script src="/typst-composer-free-test-20260920-pages/assets/theme-toggle.js"></script><script src="/typst-composer-free-test-20260920-pages/assets/marginnote-toggle.js"></script><script src="/typst-composer-free-test-20260920-pages/assets/toc.js"></script><script src="/typst-composer-free-test-20260920-pages/assets/back-to-top.js"></script><script src="/typst-composer-free-test-20260920-pages/assets/math-copy.js"></script><script src="/typst-composer-free-test-20260920-pages/assets/content-overflow.js"></script><style>/* Alignment */
+mtable.right-align mtd,
+mtable mtd.right-align,
+mtable.left-align mtd.right-align,
+mtable.aligned mtd:nth-child(odd) {
+  justify-items: end;
+  text-align: right;
+}
+mtable.cases mtd,
+mtable.left-align mtd,
+mtable mtd.left-align,
+mtable.aligned mtd:nth-child(even),
+math:is(:not([display])) > mtable.multiline-equation mtd {
+  justify-items: start;
+  text-align: left;
+}
+mtable.cases mtd,
+mtable.aligned mtd,
+mtable mtd.flushed,
+mtable mtd.left-flush {
+  padding-left: 0;
+}
+mtable.cases mtd,
+mtable.aligned mtd,
+mtable mtd.flushed,
+mtable mtd.right-flush {
+  padding-right: 0;
+}
+
+/* Tables */
+mtable {
+  math-style: inherit;
+}
+mtd {
+  math-depth: auto-add;
+  math-style: compact;
+  math-shift: compact;
+}
+
+/* Equations */
+mtable.multiline-equation mtd {
+  math-depth: inherit;
+  math-style: inherit;
+  math-shift: inherit;
+  padding: 0;
+}
+math > mtable.multiline-equation mtr:not(:last-child) mtd {
+  padding-bottom: 0.5em;
+}
+
+/* Fractions */
+mfrac {
+  padding-inline: 0;
+  margin-inline: 0.1em;
+}
+
+/* Accents */
+mover[accent="true" i] > :first-child {
+  font-feature-settings: "dtls";
+}
+mover.dotted[accent="true" i] > :first-child {
+  font-feature-settings: "dtls" 0;
+}
+
+/* Other rules for scriptlevel, displaystyle and math-shift */
+munder > :nth-child(2),
+munderover > :nth-child(2) {
+  math-shift: compact
+}
+munder[accentunder="true" i] > :not(:first-child),
+mover[accent="true" i] > :not(:first-child) {
+  math-depth: inherit;
+  math-style: inherit;
+  math-shift: inherit;
+}</style><link rel="canonical" href="https://morfisto.github.io/typst-composer-free-test-20260920-pages/Blog/math/"></head><body><header class="site-header"></header><header class="site-header"><nav class="site-nav"><a href="/typst-composer-free-test-20260920-pages/">首页</a><a href="/typst-composer-free-test-20260920-pages/Blog/">文章</a><a href="/typst-composer-free-test-20260920-pages/features/">功能一览</a><a href="/typst-composer-free-test-20260920-pages/network/">计算机网络</a><button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="Toggle theme"></button></nav></header><article><section><h2>在网页上写清一个公式</h2><div class="article-byline"><p class="article-byline-main"><span class="article-author"><span style="font-size:calc(15.4pt);font-weight:700">morfisto</span></span><span class="article-byline-separator"><span style="font-size:calc(15.4pt);font-weight:700"> · </span></span><time class="article-date"><span style="font-size:calc(15.4pt);font-weight:700">2026-09-20</span></time></p></div><p>数学表达并不止于一张图片。公式在网页中保留结构，编号与引用也随正文一起生成。</p><h3>从链路时延开始</h3><p>发送一段长度为 <span class="math-inline" role="math"><math><mi>𝐿</mi></math></span> 的数据，通过速率为 <span class="math-inline" role="math"><math><mi>𝑅</mi></math></span> 的链路，发送时延为：</p><figure id="sending-delay" class="math-block"><math display="block"><msub><mi>𝑡</mi><mi>𝑠</mi></msub><mo>=</mo><mfrac><mi>𝐿</mi><mi>𝑅</mi></mfrac></math><div class="equation-number"><span style="font-family:&quot;new computer modern math&quot;;font-weight:450">(1)</span></div></figure><p><a href="#sending-delay">(1)</a> 只描述“把数据推入链路”的过程；传播还需要时间。<span class="marginnote">带宽与传播速度是两个不同概念。</span></p><figure class="math-block"><math display="block"><mi>𝑡</mi><mo>=</mo><mfrac><mi>𝐿</mi><mi>𝑅</mi></mfrac><mo>+</mo><mfrac><mi>𝑑</mi><mi>𝑣</mi></mfrac></math><div class="equation-number"><span style="font-family:&quot;new computer modern math&quot;;font-weight:450">(2)</span></div></figure><p>例如，取 <span class="math-inline" role="math"><math><mi>𝐿</mi><mo>=</mo><mn>8000</mn></math></span> bit、<span class="math-inline" role="math"><math><mi>𝑅</mi><mo>=</mo><mn>100</mn><mo lspace="0.2222222222222222em" rspace="0.2222222222222222em">×</mo><msup><mrow><mn>10</mn></mrow><mrow><mn>6</mn></mrow></msup></math></span> bit/s，得到 <span class="math-inline" role="math"><math><msub><mi>𝑡</mi><mi>𝑠</mi></msub><mo>=</mo><mn>80</mn></math></span> 微秒。</p><h3>极限与求和</h3><figure class="math-block"><math display="block"><munderover><mo lspace="0em">∑</mo><mrow><mi>𝑘</mi><mo lspace="0em" rspace="0em">=</mo><mn>0</mn></mrow><mi>𝑛</mi></munderover><msup><mi>𝑟</mi><mi>𝑘</mi></msup><mo>=</mo><mfrac><mrow><mn>1</mn><mo>−</mo><msup><mi>𝑟</mi><mrow><mi>𝑛</mi><mo lspace="0em" rspace="0em">+</mo><mn>1</mn></mrow></msup></mrow><mrow><mn>1</mn><mo>−</mo><mi>𝑟</mi></mrow></mfrac><mspace width="1em"/><mrow><mo>(</mo><mrow><mi>𝑟</mi><mo>≠</mo><mn>1</mn></mrow><mo>)</mo></mrow></math><div class="equation-number"><span style="font-family:&quot;new computer modern math&quot;;font-weight:450">(3)</span></div></figure><p>这份示例文献为合成数据，仅用于验证引用排版 <a id="loc-1" href="#loc-2" role="doc-biblioref">[1]</a>。</p><section role="doc-bibliography"><h2>参考文献</h2><ul style="list-style-type: none"><li id="loc-2"><span class="prefix"><a href="#loc-1" role="doc-backlink">[1]</a></span> E. Lin, <em>Notes on Clear Technical Writing</em>. Synthetic Examples, 2026.</li></ul></section></section></article><footer>Typst Composer · 写作与发布实验室</footer></body></html>

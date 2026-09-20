@@ -3,3 +3,5 @@ CUSTOM STYLES
 
 Add your custom CSS styles here to override or extend the default styles.
 *******************************************************************************/
+
+.showcase-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin:2rem 0}.showcase-card{padding:1.2rem;border:1px solid #80808040;border-radius:12px}.showcase-card h3{margin-top:0}.showcase-card p{width:100%}.network-columns{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;align-items:start}.network-columns p{width:100%}.network-exercise,.network-aside{padding:1rem 1.25rem;margin:1.5rem 0;border-left:3px solid #818cf8;background:#818cf80b;border-radius:0 8px 8px 0}.network-exercise p,.network-aside p{width:100%} @media(max-width:760px){.showcase-grid,.network-columns{grid-template-columns:1fr}}
