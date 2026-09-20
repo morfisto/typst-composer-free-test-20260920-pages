@@ -1,0 +1,53 @@
+name: Composer Pages
+run-name: Composer Pages ${{ inputs.operation_id }}
+on:
+  workflow_dispatch:
+    inputs:
+      source_sha:
+        description: Exact reviewed website commit
+        required: true
+        type: string
+      operation_id:
+        description: Composer publication identity
+        required: true
+        type: string
+permissions:
+  contents: read
+concurrency:
+  group: composer-pages
+  cancel-in-progress: false
+jobs:
+  build:
+    name: Build reviewed website
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          ref: ${{ inputs.source_sha }}
+          persist-credentials: false
+      - name: Verify compiled website
+        env:
+          COMPOSER_SOURCE_SHA: ${{ inputs.source_sha }}
+          COMPOSER_OPERATION_ID: ${{ inputs.operation_id }}
+          COMPOSER_WORKFLOW_SHA: ${{ github.sha }}
+        run: python3 -I composer/pages-static.py
+      - uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b
+        with:
+          path: ../composer-public-site
+          retention-days: 30
+  deploy:
+    name: Deploy reviewed website
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy retained artifact
+        id: deployment
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e
