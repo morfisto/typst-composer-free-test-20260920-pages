@@ -1,0 +1,90 @@
+/* Composer layout ownership. Tufte's typography and theme remain independent.
+   Width rules do not depend on direct children: preview markers use display:contents. */
+:root {
+  --blog-max-width: 1400px;
+  --blog-text-width: 55%;
+  --blog-note-width: 50%;
+  --blog-note-offset: -60%;
+  --blog-note-ratio: .5;
+  --blog-note-gap-ratio: .1;
+  --blog-rail-left: 0px;
+  --blog-rail-right: 0px;
+}
+body {
+  width: 100%; max-width: var(--blog-max-width); box-sizing: border-box;
+  padding-left: max(clamp(16px, 4vw, 64px), var(--blog-rail-left));
+  padding-right: max(clamp(16px, 4vw, 64px), var(--blog-rail-right));
+}
+article { font-size:1.4rem; line-height:1.6; }
+article, article section { min-width: 0; max-width: 100%; }
+article section { display: flow-root; }
+article :is(p, ul, ol, dl, blockquote, hr, pre, figure),
+.article-byline, .blog-entry, .composer-grid-scroll {
+  width: var(--blog-text-width); max-width: 100%; box-sizing: border-box;
+}
+article :is(p, li, dt, dd, h1, h2, h3, h4, h5, h6, figcaption), .site-nav a, body > footer {
+  overflow-wrap: anywhere;
+}
+article :is(ul, ol) { padding-inline-start: 1.6em; }
+article :where(.fullwidth, .marginnote, .sidenote, .composer-grid-cell, li, dd, blockquote, figure, .article-byline)
+  :is(p, ul, ol, dl, blockquote, hr, pre, figure),
+article :where(.fullwidth, .marginnote, .sidenote, .composer-grid-cell, li, dd, blockquote, figure, .article-byline)
+  :is(.article-byline, .blog-entry, .composer-grid-scroll) {
+  width: 100%; max-width: 100%;
+}
+article :is(img, svg, video) { max-width: 100%; max-height: none; height: auto; }
+article section > :is(img, svg) { position: static; left: auto; transform: none; max-width: var(--blog-text-width); }
+article :is(figure, .fullwidth, .marginnote, .sidenote, .composer-grid-cell) :is(img, svg) {
+  position: static; left: auto; transform: none; max-width: 100%;
+}
+article figcaption { float: none; clear: both; width: auto; max-width: 100%; margin: .5em 0 0; }
+.fullwidth { width: 100%; min-width: 0; max-width: 100%; margin-inline: 0; clear: both; }
+article pre { overflow-x: auto; }
+article pre > code { width: auto; min-width: max-content; white-space: pre; overflow-wrap: normal; }
+article .math-block { font-size:1em; width: var(--blog-text-width); max-width: 100%; overflow-x: auto; }
+article :is(.fullwidth, figure, .composer-grid-cell, .marginnote) .math-block { width: 100%; }
+article .math-block { display: flex; align-items: center; gap: 1em; }
+article .math-block > math { flex: 1 0 auto; width: auto; margin: 0; }
+article .math-block > .equation-number { flex: 0 0 auto; margin-left: auto; white-space: nowrap; }
+.math-inline { max-width: 100%; overflow-x: auto; }
+.composer-native-table-scroll, .composer-web-table-scroll {
+  width: 100%; max-width: 100%; overflow-x: auto; clear: both;
+}
+.composer-native-table-scroll > table { width: max-content; max-width: none; position: static; transform: none; margin: 1em 0; }
+.composer-web-table { margin: 1.2em 0; position: static; transform: none; }
+.composer-web-table p { font-size: inherit; line-height: inherit; text-align: inherit; color: inherit; width: auto; max-width: none; margin: 0; }
+.blog-image { max-width: 100%; margin: 1.2em 0; width: calc(var(--blog-text-width) * var(--blog-image-scale, 1)); }
+.blog-image img { display: block; position: static; left: auto; max-width: 100%; }
+.blog-image-full { width: calc(100% * var(--blog-image-scale, 1)); }
+.blog-image-margin {
+  float: right; width: calc(var(--blog-text-width) * var(--blog-note-ratio) * var(--blog-image-scale, 1));
+  margin-right: calc(100% - var(--blog-text-width) * (1 + var(--blog-note-ratio) + var(--blog-note-gap-ratio)));
+}
+.blog-image figcaption { font-size: .85em; }
+.marginnote, .sidenote { width: var(--blog-note-width); margin-right: var(--blog-note-offset); overflow-wrap: anywhere; }
+.composer-grid-cell :is(.marginnote, .sidenote), .fullwidth :is(.marginnote, .sidenote) {
+  float: none; display: block; width: 100%; margin: .5em 0;
+}
+.site-nav { flex-wrap: wrap; align-items: center; }
+.site-nav > p { width: auto; max-width: 100%; }
+.site-nav .theme-toggle-btn { flex-shrink: 0; }
+:is(.composer-grid-scroll, .composer-native-table-scroll, .composer-web-table-scroll, pre, .math-block):focus-visible {
+  outline: 2px solid var(--theme-text); outline-offset: 2px;
+}
+@media (max-width: 1199px) {
+  body { --blog-rail-left: 0px; --blog-rail-right: 0px; }
+}
+@media (max-width: 760px) {
+  article { --blog-text-width: 100%; }
+  body > article { padding-top:1.5rem; }
+  article p { text-align:start; text-justify:auto; }
+  .blog-image-margin { float: none; width: calc(100% * var(--blog-image-scale, 1)); margin-right: 0; }
+  .marginnote, .sidenote { float: none; position: static; width: 100%; margin: .5rem 0 1.25rem; box-sizing: border-box; }
+  html[data-notes-ready] article .marginnote:not(.is-expanded) { display: none; }
+  html[data-notes-ready] article .marginnote.is-expanded { display: block; }
+  .site-nav { gap: .35em; }
+  .site-nav a:any-link { margin-top: .25em; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+.blog-overflow-hint:not([hidden]) { display:block; font-size:.8rem; line-height:1.4; margin:.2em 0 1em; color:var(--theme-text); opacity:.75; }

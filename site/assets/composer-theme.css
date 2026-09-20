@@ -1,0 +1,5 @@
+article a:any-link{color:var(--blog-link,inherit)}
+.blog-button{display:inline-block;padding:.45em .8em;border-radius:.3em;text-decoration:none;background-image:none!important}.blog-button-filled{background:var(--theme-text);color:var(--theme-bg)!important}.blog-button-outline{border:1px solid currentColor}.blog-button:focus-visible{outline:2px solid currentColor;outline-offset:3px}
+:root{--blog-max-width:1400px;--blog-text-width:55%;--blog-note-width:50%;--blog-note-offset:-60%;--blog-note-ratio:0.5;--blog-note-gap-ratio:0.1;--blog-rail-left:212px;--blog-rail-right:0px}
+.toc-sidebar{left:1rem;right:auto;width:180px;max-width:22vw}
+.toc-mobile-toggle{display:none}@media(max-width:1199px){.toc-mobile-toggle{display:block}}

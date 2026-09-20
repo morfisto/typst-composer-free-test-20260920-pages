@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://morfisto.github.io/typst-composer-free-test-20260920-pages/sitemap.xml
